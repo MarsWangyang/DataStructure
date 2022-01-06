@@ -10,13 +10,10 @@ typedef struct listNode
 
 listPointer *Traversal(listPointer *ptr)
 {
-    //cout << "ptr: " << ptr << endl;
     listPointer *current = ptr;
     while (current->link)
     {
-        //cout << "Current: data[" << current->data << "] , link[" << current->link << "]" << endl;
         current = current->link;
-        //cout << "Current in: data[" << current->data << "] , link[" << current->link << "]" << endl;
     }
 
     return current;
@@ -25,7 +22,6 @@ listPointer *Traversal(listPointer *ptr)
 listPointer *IndexSearch(string func, listPointer *ptr, int index)
 {
     listPointer *current = ptr;
-    listPointer *temp;
     int cnt = 0;
 
     while (current->link)
@@ -36,7 +32,6 @@ listPointer *IndexSearch(string func, listPointer *ptr, int index)
         }
         else
         {
-            temp = current;
             current = current->link;
             cnt++;
         }
@@ -51,28 +46,6 @@ listPointer *IndexSearch(string func, listPointer *ptr, int index)
         return current;
     }
     return NULL;
-    // if (func == "deleteIndex")
-    // {
-    //     return temp;
-    // }
-    // else
-    // {
-    //     return current;
-    // }
-
-    // if (current->link)
-    // {
-
-    //     for (int i = 0; i <= index - 1; i++)
-    //     {
-
-    //         cout << "current: " << current->data << " " << current->link << endl;
-
-    //         current = current->link;
-
-    //         cout << "current->link: " << current->data << " " << current->link << endl;
-    //     }
-    // }
 }
 
 void Display(listPointer *ptr)
@@ -148,7 +121,6 @@ int main()
     EXIT = false;
     int i = 0;
     while (EXIT == false)
-    //for (int i = 0; i < space; i += 2)
     {
         if (command[i] == "addBack")
         {
