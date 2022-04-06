@@ -4,8 +4,8 @@ using namespace std;
 
 typedef struct
 {
-    int vert;
     int horiz;
+    int vert;
 } offset;
 
 struct Element
@@ -41,9 +41,8 @@ void Move(int **matrix, int **marked, offset *move, int endRow, int endCol)
     int nextRow, nextCol;
     stack<Element> elementStack;
     elementStack.push(Element(-1, -1, -1));
-    elementStack.push(Element(1, 1, 1)); // inital location
+    elementStack.push(Element(1, 1, 1));
     marked[1][1] = 1;
-    //cout << "end: " << endRow << " " << endCol << endl;
     while (top > -1 && !FOUND)
     {
         Element pos = elementStack.top();
@@ -56,20 +55,20 @@ void Move(int **matrix, int **marked, offset *move, int endRow, int endCol)
             elementStack.pop();
         }
         else
+        {
             break;
+        }
         while (dir < 4 && !FOUND)
         {
-            /* Move in direction */
             nextRow = row + move[dir].vert;
             nextCol = col + move[dir].horiz;
-            //cout << "next: " << nextRow << " " << nextCol << endl;
             if (nextRow == endRow && nextCol == endCol)
             {
                 elementStack.push(Element(row, col, dir));
                 elementStack.push(Element(nextRow, nextCol, -1));
                 FOUND = true;
             }
-            else if (!matrix[nextRow][nextCol] && !marked[nextRow][nextCol])
+            else if (!marked[nextRow][nextCol] && !matrix[nextRow][nextCol])
             {
                 marked[nextRow][nextCol] = 1;
                 pos.row = row;
@@ -86,59 +85,51 @@ void Move(int **matrix, int **marked, offset *move, int endRow, int endCol)
                 ++dir;
             }
         }
-    }
-    if (FOUND)
-    {
-        stack<Element> result;
-        while (elementStack.size())
+        if (FOUND)
         {
-            Element value = elementStack.top();
-            result.push(value);
-            elementStack.pop();
-        }
-        result.pop();
-        while (result.size())
-        {
-            cout << "(" << result.top().row - 1 << "," << result.top().col - 1 << ") ";
+            stack<Element> result;
+            while (elementStack.size())
+            {
+                Element value = elementStack.top();
+                result.push(value);
+                elementStack.pop();
+            }
             result.pop();
+            while (result.size())
+            {
+                cout << "nncie ";
+            }
         }
     }
-    else
-    {
-        cout << "Can't reach the exit!" << endl;
-    }
-
-    return;
 }
 
 int main()
 {
     int row, col;
-
     cin >> row >> col;
     int **matrix;
     int **marked;
-    int endRow, endCol;
-    endRow = row;
-    endCol = col;
+    int endRow = row;
+    int endCol = col;
     offset move[4];
     matrix = new int *[row + 2];
     marked = new int *[row + 2];
 
-    MoveSetting(move);
-    for (int i = 0; i <= row + 1; i++)
+    for (int i = 0; i < row + 2; i++)
     {
         marked[i] = new int[col + 2];
     }
-    for (int i = 0; i <= row + 1; i++)
+
+    MoveSetting(move);
+    for (int i = 0; i < row + 2; i++)
     {
         matrix[i] = new int[col + 2];
-        for (int j = 0; j <= col + 1; j++)
+        for (int j = 0; j < col + 2; j++)
         {
-            if (i == 0 || j == 0 || i == row + 1 || j == col + 1)
+            if (i == 0 || j == 0 || j == col + 1 || i == row + 1)
             {
-                matrix[i][j] = 1;
                 marked[i][j] = 1;
+                matrix[i][j] = 1;
             }
             else
             {
@@ -147,17 +138,6 @@ int main()
             }
         }
     }
-    Move(matrix, marked, move, endRow, endCol);
 
-    for (int i = 0; i < row; i++)
-    {
-        delete[] matrix[i];
-    }
-    for (int i = 0; i < row; i++)
-    {
-        delete[] marked[i];
-    }
-    delete[] marked;
-    delete[] matrix;
     return 0;
 }

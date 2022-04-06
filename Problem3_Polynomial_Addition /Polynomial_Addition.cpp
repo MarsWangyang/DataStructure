@@ -25,7 +25,6 @@ int Compare(int arr1Expon, int arr2Expon)
 
 int main()
 {
-    int count = 2;
     int num1, num2;
     polynomial *arr1, *arr2;
     cin >> num1;

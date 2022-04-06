@@ -22,6 +22,7 @@ void Sort(int *array, int cnt)
                 minID = currentID;
             }
         }
+        //這邊在做SWAP，也就是把最一開始跟大家比較的數字，去看是不是自己還是最小，然後做SWAP
         int stuScore = *minScore;
         int stuID = *minID;
         while (minScore > array + i + 1)
@@ -51,7 +52,6 @@ int main()
     }
 
     Sort(arr, cnt);
-    int *checkpoint = arr;
     int count = 0;
     for (int i = 2 * cnt - 1; i >= 0; i -= 2)
     {
@@ -63,7 +63,6 @@ int main()
             }
             else
             {
-
                 count = 0;
             }
         }
@@ -84,7 +83,6 @@ int main()
                     cout << *(arr + j - 1) << endl;
                 }
             }
-            checkpoint = arr + i;
             count = 0;
         }
     }
